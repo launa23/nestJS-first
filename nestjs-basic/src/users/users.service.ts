@@ -26,11 +26,11 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
+  async findAll() {
     return this.userModel.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     if(!mongoose.Types.ObjectId.isValid(id)){
       throw new NotFoundException(`Not found user`);
     }
@@ -41,7 +41,10 @@ export class UsersService {
     return await this.userModel.updateOne({_id: updateUserDto._id}, {...updateUserDto});
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    if(!mongoose.Types.ObjectId.isValid(id)){
+      throw new NotFoundException(`Not found user`);
+    }
+    return await this.userModel.deleteOne({id});
   }
 }
