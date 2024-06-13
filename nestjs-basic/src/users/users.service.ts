@@ -40,9 +40,6 @@ export class UsersService {
     return this.userModel.findById(id);
   }
   async findOneByUsername(username: string) {
-    if(!mongoose.Types.ObjectId.isValid(username)){
-      throw new NotFoundException(`Not found user`);
-    }
     return this.userModel.findOne({
       email: username
     });
