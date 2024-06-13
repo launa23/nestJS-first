@@ -9,6 +9,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
+
+  // hàm này sẽ được gọi tự dộng kh đăng nhập
   async validate(username: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(username, password);
     if (!user) {
