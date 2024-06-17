@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ConfigService } from '@nestjs/config';
+import { IUser } from './user.interface';
+import { User } from '../decorator/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -10,8 +12,8 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body() createUserDTO: CreateUserDto) {
-    return this.usersService.create(createUserDTO);
+  create(@Body() createUserDTO: CreateUserDto, @User() user: IUser) {
+    return this.usersService.create(createUserDTO, user);
   }
 
   @Get()
